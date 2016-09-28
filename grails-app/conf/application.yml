@@ -9,15 +9,21 @@ hibernate:
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/dacai
+    driverClassName: com.mysql.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    username: root
+    password: payegis
 
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: none
+            url: jdbc:mysql://localhost:3306/dacai
+            driverClassName: com.mysql.jdbc.Driver
+            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+            username: root
+            password: payegis
     test:
         dataSource:
             dbCreate: update
@@ -121,6 +127,36 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+    plugin:
+      databasemigration:
+        changelogLocation: "migrations"
+        updateOnStart: true
+        updateOnStartFileNames: ['changelog.groovy']
+      springsecurity:
+        userLookup:
+          userDomainClassName: "com.account.User"
+          authorityJoinClassName: "com.account.UserRole"
+        authority:
+          className: "com.account.Role"
+        auth:
+          loginFormUrl: /login
+          ajaxLoginFormUrl: /login
+        adh:
+          errorPage: /denied
+        successHandler:
+          defaultTargetUrl: /index
+        providerNames: ['myAuthenticationProvider','anonymousAuthenticationProvider', 'rememberMeAuthenticationProvider']
+        controllerAnnotations:
+          staticRules:
+              -'/':['ROLE_SUPER_ADMIN']
+              -'/index':['ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_RECORD_ORG','ROLE_APPROVE_RECORD','ROLE_READ_RECORD','ROLE_OPERATE_RECORD','ROLE_ACCOUNT_MANAGE']
+              -'/index.gsp':['ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_RECORD_ORG','ROLE_APPROVE_RECORD','ROLE_READ_RECORD','ROLE_OPERATE_RECORD','ROLE_ACCOUNT_MANAGE']
+              -'/assets/**':['permitAll']
+              -'/**/js/**':['permitAll']
+              -'/**/css/**':['permitAll']
+              -'/**/images/**':['permitAll']
+              -'/**/favicon.ico':['permitAll']
+              -'/login':['permitAll']
 endpoints:
     jmx:
         unique-names: true
