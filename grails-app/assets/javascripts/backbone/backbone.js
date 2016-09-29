@@ -765,7 +765,7 @@
   var setOptions = {add: true, remove: true, merge: true};
   var addOptions = {add: true, remove: false};
 
-  // Splices `insert` into `array` at index `at`.
+  // Splices `insert` into `array` at mainPage `at`.
   var splice = function(array, insert, at) {
     at = Math.min(Math.max(at, 0), array.length);
     var tail = Array(array.length - at);
@@ -994,7 +994,7 @@
       return this.get(obj) != null;
     },
 
-    // Get the model at the given index.
+    // Get the model at the given mainPage.
     at: function(index) {
       if (index < 0) index += this.length;
       return this.models[index];

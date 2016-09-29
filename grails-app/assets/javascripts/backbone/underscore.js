@@ -410,7 +410,7 @@
   });
 
   // Indexes the object's values by a criterion, similar to `groupBy`, but for
-  // when you know that your index values will be unique.
+  // when you know that your mainPage values will be unique.
   _.indexBy = group(function(result, value, key) {
     result[key] = value;
   });
@@ -578,7 +578,7 @@
   };
 
   // Zip together multiple lists into a single array -- elements that share
-  // an index go together.
+  // an mainPage go together.
   _.zip = function() {
     return _.unzip(arguments);
   };
@@ -623,11 +623,11 @@
     };
   }
 
-  // Returns the first index on an array-like that passes a predicate test
+  // Returns the first mainPage on an array-like that passes a predicate test
   _.findIndex = createPredicateIndexFinder(1);
   _.findLastIndex = createPredicateIndexFinder(-1);
 
-  // Use a comparator function to figure out the smallest index at which
+  // Use a comparator function to figure out the smallest mainPage at which
   // an object should be inserted so as to maintain order. Uses binary search.
   _.sortedIndex = function(array, obj, iteratee, context) {
     iteratee = cb(iteratee, context, 1);

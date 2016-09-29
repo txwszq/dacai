@@ -132,27 +132,6 @@ grails:
         changelogLocation: "migrations"
         updateOnStart: true
         updateOnStartFileNames: ['changelog.groovy']
-      springsecurity:
-        userLookup:
-          userDomainClassName: "com.account.User"
-          authorityJoinClassName: "com.account.UserRole"
-        authority:
-          className: "com.account.Role"
-        auth:
-          loginFormUrl: /login
-          ajaxLoginFormUrl: /login
-        adh:
-          errorPage: /denied
-        successHandler:
-          defaultTargetUrl: /index
-        providerNames: ['myAuthenticationProvider','anonymousAuthenticationProvider', 'rememberMeAuthenticationProvider']
-        controllerAnnotations:
-          staticRules:
-              -[pattern :'/assets/**',      access :['permitAll']],
-              -[pattern :'/**/js/**',       access :['permitAll']],
-              -[pattern :'/**/css/**',      access :['permitAll']],
-              -[pattern :'/**/images/**',   access :['permitAll']],
-              -[pattern :'/**/favicon.ico', access :['permitAll']]
 endpoints:
     jmx:
         unique-names: true
