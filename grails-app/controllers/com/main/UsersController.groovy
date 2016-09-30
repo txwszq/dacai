@@ -4,11 +4,10 @@ import com.emum.RoleTypes
 import grails.plugin.springsecurity.annotation.Secured
 
 @Secured([RoleTypes.Constants.SUPER_ADMIN])
-class MainPageController extends AbstractController{
-
+class UsersController extends AbstractController{
 
     def index() {
-        println "mainPage"
-       render(view: "/index")
+        println "test"
+        buildSuccessResponse()
     }
 }

@@ -24,7 +24,7 @@ class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             updateUser.lastLoginIP = IpUtils.getIpAddr(request)
             updateUser.save(flush: true, failOnError: true)
         }
-        request.getRequestDispatcher("/mainPage").forward(request, response);
+        response.sendRedirect('/index')
     }
 
 }
