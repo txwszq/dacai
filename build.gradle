@@ -65,6 +65,7 @@ dependencies {
     runtime 'org.grails.plugins:database-migration:2.0.0.RC4'
     runtime 'mysql:mysql-connector-java:5.1.29'
     compile 'org.grails.plugins:spring-security-core:3.1.1'
+    compile "com.mashape.unirest:unirest-java:1.3.27"
 }
 
 assets {
@@ -75,7 +76,7 @@ assets {
 sourceSets {
     main {
         resources {
-            srcDir 'grails-app/migrations'
+            srcDir 'migrations'
         }
         java {
             srcDirs 'src/java', 'src/groovy'
