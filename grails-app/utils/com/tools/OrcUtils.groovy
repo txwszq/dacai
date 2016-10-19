@@ -1,6 +1,7 @@
 package com.tools
 
 import com.mashape.unirest.http.Unirest
+import org.apache.commons.lang.StringUtils
 
 import java.security.MessageDigest
 
@@ -19,7 +20,7 @@ class OrcUtils {
 //                .field('userfile', stream)
 //                .asJson()
         def resp = ChaoJiYing.PostPic(username, password, '891064', '1104', '4', '0', 'test', stream)
-        println resp.toString()
+        StringUtils.substringBefore(StringUtils.substringAfter(resp.toString(), "\"pic_str\":\""), "\",\"")
     }
 
 }
