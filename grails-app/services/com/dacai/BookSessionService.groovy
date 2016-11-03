@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat
 @Transactional
 class BookSessionService {
 
+    def username = "1"
+    def password = ""
+
     def bookSession(def date) {
         def cookieStore = new BasicCookieStore();
         Unirest.setHttpClient(HttpClients.custom()
@@ -17,8 +20,8 @@ class BookSessionService {
                 .build());
         def login = Unirest.post("http://www.vipabc.com/program/member/member_login_exe.asp")
                 .header('Referer', 'http://www.vipabc.com/')
-                .field('txt_login_account', '1')
-                .field('pwd_login_password', '1')
+                .field('txt_login_account', username)
+                .field('pwd_login_password', password)
                 .asString()
         println login.body.toString()
         def book = Unirest.post("http://www.vipabc.com/Center/Reservation/SetReservation")
@@ -41,19 +44,28 @@ class BookSessionService {
     }
 
     def getSevenDays(String date) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd 07:30:00")
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
         Calendar c = Calendar.getInstance()
         def list = []
         if (date) {
-            SimpleDateFormat sf2 = new SimpleDateFormat("yyyy/MM/dd")
+            SimpleDateFormat sf2 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
             println sf2.parse(date)
             c.setTime(sf2.parse(date))
         }
         for (int i = 0; i < 7; i++) {
-            c.add(c.DATE, 1)
             if (c.get(Calendar.DAY_OF_WEEK)  != Calendar.MONDAY) {
-                list.add(sf.format(c.getTime()))
+                if (c.get(Calendar.DAY_OF_WEEK)  == Calendar.SATURDAY || c.get(Calendar.DAY_OF_WEEK)  == Calendar.SUNDAY) {
+                    for (int j = 0; j < 3; j++) {
+                        list.add(sf.format(c.getTime()))
+                        c.add(c.HOUR, 1)
+                    }
+                    c.add(c.HOUR, -3)
+                } else {
+                    list.add(sf.format(c.getTime()))
+                }
             }
+
+            c.add(c.DATE, 1)
         }
         return list
     }
@@ -65,8 +77,8 @@ class BookSessionService {
                 .build());
         def login = Unirest.post("http://www.vipabc.com/program/member/member_login_exe.asp")
                 .header('Referer', 'http://www.vipabc.com/')
-                .field('txt_login_account', '1')
-                .field('pwd_login_password', '1')
+                .field('txt_login_account', username)
+                .field('pwd_login_password', password)
                 .asString()
         println login.body.toString()
         def book = Unirest.post("http://www.vipabc.com/Center/Reservation/SetReservation")
@@ -89,20 +101,21 @@ class BookSessionService {
     }
 
     def getFourSessionTime(String date) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd 08:30:00")
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
         Calendar c = Calendar.getInstance()
         def list = []
         if (date) {
-            SimpleDateFormat sf2 = new SimpleDateFormat("yyyy/MM/dd")
+            SimpleDateFormat sf2 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
             println sf2.parse(date)
             c.setTime(sf2.parse(date))
         }
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
-                c.add(c.HOUR, 1)
                 list.add(sf.format(c.getTime()))
+                c.add(c.HOUR, 1)
             }
             c.add(c.HOUR, -3);
+            c.add(c.DATE, 1)
         }
         return list
     }
