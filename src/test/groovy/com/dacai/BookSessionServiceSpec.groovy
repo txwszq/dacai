@@ -21,4 +21,11 @@ class BookSessionServiceSpec extends Specification {
         then:
         noExceptionThrown()
     }
+
+    void "test weekend"() {
+        when:
+        service.bookSessionWeekend('2016/11/05')
+        then:
+        noExceptionThrown()
+    }
 }
