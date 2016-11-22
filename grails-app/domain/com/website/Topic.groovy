@@ -2,19 +2,16 @@ package com.website
 
 class Topic {
 
-    String topicName
-    String topicUrl
-    Map<String, String> params
+    String name
 
     static constraints = {
     }
 
-    static belongsTo = [webSite: WebSite]
+    static hasMany = [siteParams: SiteParams]
+    static belongsTo = [WebSite]
 
     static mapping = {
         table 't_topic'
-        topicName column: 's_topic_name'
-        topicUrl column: 's_topic_url'
-        params joinTable: 't_topic_params'
+        name column: 's_topic_name'
     }
 }

@@ -1,6 +1,6 @@
 databaseChangeLog = {
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-1") {
+    changeSet(author: "michael (generated)", id: "1478187982818-1") {
         createTable(tableName: "t_role") {
             column(autoIncrement: "true", name: "id", type: "BIGINT") {
                 constraints(primaryKey: "true", primaryKeyName: "t_rolePK")
@@ -12,7 +12,33 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-2") {
+    changeSet(author: "michael (generated)", id: "1478187982818-2") {
+        createTable(tableName: "t_topic") {
+            column(autoIncrement: "true", name: "id", type: "BIGINT") {
+                constraints(primaryKey: "true", primaryKeyName: "t_topicPK")
+            }
+
+            column(name: "version", type: "BIGINT") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "s_topic_name", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-3") {
+        createTable(tableName: "t_topic_t_web_site_params") {
+            column(name: "topic_site_params_id", type: "BIGINT") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "site_params_id", type: "BIGINT")
+        }
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-4") {
         createTable(tableName: "t_user") {
             column(autoIncrement: "true", name: "id", type: "BIGINT") {
                 constraints(primaryKey: "true", primaryKeyName: "t_userPK")
@@ -72,7 +98,7 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-3") {
+    changeSet(author: "michael (generated)", id: "1478187982818-5") {
         createTable(tableName: "t_user_role") {
             column(name: "user_id", type: "BIGINT") {
                 constraints(nullable: "false")
@@ -84,30 +110,107 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-4") {
+    changeSet(author: "michael (generated)", id: "1478187982818-6") {
+        createTable(tableName: "t_web_site") {
+            column(autoIncrement: "true", name: "id", type: "BIGINT") {
+                constraints(primaryKey: "true", primaryKeyName: "t_web_sitePK")
+            }
+
+            column(name: "version", type: "BIGINT") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "code", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "date_created", type: "datetime") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "last_updated", type: "datetime") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "s_name", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "s_url", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-7") {
+        createTable(tableName: "t_web_site_params") {
+            column(autoIncrement: "true", name: "id", type: "BIGINT") {
+                constraints(primaryKey: "true", primaryKeyName: "t_web_site_paramsPK")
+            }
+
+            column(name: "version", type: "BIGINT") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "s_code", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "s_value", type: "VARCHAR(255)") {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-8") {
+        createTable(tableName: "t_web_site_t_topic") {
+            column(name: "web_site_topics_id", type: "BIGINT") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "topic_id", type: "BIGINT")
+        }
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-9") {
         addPrimaryKey(columnNames: "user_id, role_id", constraintName: "t_user_rolePK", tableName: "t_user_role")
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-5") {
+    changeSet(author: "michael (generated)", id: "1478187982818-10") {
         addUniqueConstraint(columnNames: "s_authority", constraintName: "UC_T_ROLES_AUTHORITY_COL", tableName: "t_role")
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-6") {
+    changeSet(author: "michael (generated)", id: "1478187982818-11") {
         addUniqueConstraint(columnNames: "s_username", constraintName: "UC_T_USERS_USERNAME_COL", tableName: "t_user")
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-7") {
+    changeSet(author: "michael (generated)", id: "1478187982818-12") {
         addForeignKeyConstraint(baseColumnNames: "role_id", baseTableName: "t_user_role", constraintName: "FK_4uvv76e86ms8ru0kk9s01d3s2", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_role")
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-8") {
+    changeSet(author: "michael (generated)", id: "1478187982818-13") {
         addForeignKeyConstraint(baseColumnNames: "n_user_id", baseTableName: "t_user", constraintName: "FK_6vvkl5qia1e9dtvmt37486t0y", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_user")
     }
 
-    changeSet(author: "zhiqiang.zhao (generated)", id: "1475054779335-9") {
+    changeSet(author: "michael (generated)", id: "1478187982818-14") {
+        addForeignKeyConstraint(baseColumnNames: "web_site_topics_id", baseTableName: "t_web_site_t_topic", constraintName: "FK_7vv700rrjodf1kvmlaqdroumg", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_web_site")
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-15") {
+        addForeignKeyConstraint(baseColumnNames: "topic_id", baseTableName: "t_web_site_t_topic", constraintName: "FK_8h3laibqcnyfqqn0cbhj0ws3q", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_topic")
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-16") {
+        addForeignKeyConstraint(baseColumnNames: "topic_site_params_id", baseTableName: "t_topic_t_web_site_params", constraintName: "FK_e29pbk8hlgborgmx02kf5iyij", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_topic")
+    }
+
+    changeSet(author: "michael (generated)", id: "1478187982818-17") {
         addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "t_user_role", constraintName: "FK_kefwen29p9h9ilvry31mgyc94", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_user")
     }
 
+    changeSet(author: "michael (generated)", id: "1478187982818-18") {
+        addForeignKeyConstraint(baseColumnNames: "site_params_id", baseTableName: "t_topic_t_web_site_params", constraintName: "FK_nbj1ahalk10vnroomxh1t7jbb", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "t_web_site_params")
+    }
     changeSet(author: "zhiqiang.zhao (generated)", id: "init-role") {
         grailsChange {
             change {
