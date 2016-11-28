@@ -17,7 +17,7 @@ class DiscuzServiceSpec extends Specification {
 
     void "test something"() {
         when:
-        service.sendMsg(3287615, null)
+        service.sendMsg(3287340, null)
 //        service.getFromHash(null)
         then:
         noExceptionThrown()
