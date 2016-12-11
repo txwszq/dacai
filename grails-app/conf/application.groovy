@@ -19,4 +19,3 @@ grails.plugin.springsecurity.providerNames = ['myAuthenticationProvider',
                                               'rememberMeAuthenticationProvider']
 grails.plugin.springsecurity.adh.errorPage = '/denied'
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
-
