@@ -32,4 +32,8 @@ public class ParamsStrategiesContext {
     public List getSignParams(String formHash) {
         return strategiesParams.signParams(formHash);
     }
+
+    public List getUpdateInfo(String formhash, String siteInfo, String bio) {
+        return strategiesParams.updateInfo(formhash, siteInfo, bio);
+    }
 }

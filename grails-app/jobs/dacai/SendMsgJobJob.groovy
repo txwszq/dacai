@@ -23,7 +23,7 @@ class SendMsgJobJob {
         // execute job
         Discuz.findAll().each {discuz ->
 //            println discuz.url
-            discuzService.uploadImg(discuz)
+            discuzService.updateInfo(discuz)
             println discuz.url
 //            def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
 //            HttpUtil.get(discuz.url, cookieStore)

@@ -30,7 +30,7 @@ class DiscuzService {
         log.info("start login ${discuz.url}")
         ParamsStrategiesContext context = new ParamsStrategiesContext()
         def params = context.getLoginParams(discuz.url, discuz.username, discuz.password)
-        def cookieStore = HttpUtil.post("${discuz.url}/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1", params, null)
+        def cookieStore = HttpUtil.post("${discuz.url}/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1",params, null)
         SerializeUtil.writeCookies(discuz.url, discuz.username, cookieStore)
         log.info("finish login")
     }
@@ -130,4 +130,11 @@ class DiscuzService {
 
     }
 
+    def updateInfo(Discuz discuz) {
+        checkLogin(discuz)
+        def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
+        def context = new ParamsStrategiesContext()
+        def params = context.getUpdateInfo(getFormHash(discuz), "vpn加q群：516050449免费试用.", "高速独享vpn厉害了，Youtube高清视频不卡，上Facebook，Twitter，Google不限制，加q群：516050449免费试用.")
+        HttpUtil.post("${discuz.url}/home.php?mod=spacecp&ac=profile&op=info", params, cookieStore)
+    }
 }

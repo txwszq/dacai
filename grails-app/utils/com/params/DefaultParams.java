@@ -48,4 +48,21 @@ public class DefaultParams implements StrategiesParams {
         params.add(new BasicNameValuePair("fastreply", "0"));
         return params;
     }
+
+    @Override
+    public List<NameValuePair> updateInfo(String formhash, String siteInfo, String bio) {
+        List params = new ArrayList();
+        params.add(new BasicNameValuePair("formhash", formhash));
+        params.add(new BasicNameValuePair("site", siteInfo));
+        params.add(new BasicNameValuePair("privacy[site]", "0"));
+        params.add(new BasicNameValuePair("bio", bio));
+        params.add(new BasicNameValuePair("interest", bio));
+        params.add(new BasicNameValuePair("privacy[interest]", "0"));
+        params.add(new BasicNameValuePair("customstatus", ""));
+        params.add(new BasicNameValuePair("sightml", bio));
+        params.add(new BasicNameValuePair("timeoffset", "8"));
+        params.add(new BasicNameValuePair("profilesubmit", "true"));
+        params.add(new BasicNameValuePair("profilesubmitbtn", "true"));
+        return params;
+    }
 }

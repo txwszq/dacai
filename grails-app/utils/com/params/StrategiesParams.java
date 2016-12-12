@@ -14,4 +14,5 @@ public interface StrategiesParams {
     List<NameValuePair> loginParams(String url, String username, String password);
     List<NameValuePair> leaveMsgParams(String msg, String targetId, String formHash);
     List<NameValuePair> signParams(String formHash);
+    List<NameValuePair> updateInfo(String formhash, String siteInfo, String bio);
 }
