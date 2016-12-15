@@ -2,25 +2,14 @@ package com.dacai
 
 import com.HttpUtil
 import com.SerializeUtil
-import com.mashape.unirest.http.Unirest
 import com.params.ParamsStrategiesContext
 import com.website.Discuz
 import grails.transaction.Transactional
 import org.apache.commons.httpclient.HttpState
 import org.apache.commons.httpclient.methods.GetMethod
-import org.apache.commons.httpclient.params.HttpMethodParams
 import org.apache.commons.lang.StringUtils
-import org.apache.http.impl.client.BasicCookieStore
 import org.apache.http.message.BasicNameValuePair
-import org.apache.tools.ant.taskdefs.condition.Http
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
 
 @Transactional
 class DiscuzService {
@@ -89,28 +78,18 @@ class DiscuzService {
         return uid
     }
 
-    def shouting(targetId, cookies, url, username, password) {
-        ///home.php?mod=spacecp&ac=follow&op=add&hash=f4d3f296&fuid=10080010&infloat=yes&handlekey=followmod&inajax=1&ajaxtarget=fwin_content_followmod
-        if (!cookies) {
-            cookies = login(url, username, password)
+    def shouting(Discuz discuz) {
+        //
+        checkLogin(discuz)
+        def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
+        def formHash = getFormHash(discuz)
+        def responseString = HttpUtil.get("${discuz.url}/home.php?mod=spacecp&ac=follow&op=add&hash=${formHash}&fuid=${discuz.currentId}&infloat=yes&handlekey=followmod&inajax=1&ajaxtarget=fwin_content_followmod", cookieStore)
+        if(responseString.indexOf("成功收听") < 0) {
+            println discuz.url
+            println responseString
         }
-        def formHash = getFormHash(cookies, url)
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost(url, LOGON_PORT);
-        GetMethod get = new GetMethod("${url}/home.php?mod=spacecp&ac=follow&op=add&hash=${formHash}&fuid=${targetId}&infloat=yes&handlekey=followmod&inajax=1&ajaxtarget=fwin_content_followmod");
-        get.setRequestHeader("Referer", "http://bbs.xs163.net/portal.php");
-        get.setRequestHeader("Cookie", cookies.toArrayString().replace("[", "").replace("]", ""));
-        get.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:50.0) Gecko/20100101 Firefox/50.0");
-
-        HttpState initialState = new HttpState();
-        initialState.addCookies(cookies);
-        client.setState(initialState);
-        client.executeMethod(get);
-        def responseString = new String(
-                get.getResponseBodyAsString().getBytes(
-                        "utf-8"));
-        println responseString
-//        return StringUtils.substringBefore(responseString.split("discuz_uid = '")[1],"'")
+        discuz.currentId--
+        discuz.save(flush:true)
 
     }
 

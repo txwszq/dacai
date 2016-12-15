@@ -12,7 +12,7 @@ class SendMsgJobJob {
     DiscuzService discuzService
 
     static triggers = {
-      simple repeatInterval: 11150000l // execute job once in 5 seconds
+      simple repeatInterval: 1000000 // execute job once in 5 seconds
     }
 
     //收听url
@@ -23,8 +23,8 @@ class SendMsgJobJob {
         // execute job
         Discuz.findAll().each {discuz ->
 //            println discuz.url
-            discuzService.updateInfo(discuz)
-            println discuz.url
+            discuzService.shouting(discuz)
+//            println discuz.url
 //            def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
 //            HttpUtil.get(discuz.url, cookieStore)
         }
