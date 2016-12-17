@@ -19,9 +19,14 @@ class SerializeUtil {
     }
 
     def static readCookies(url, username) {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("${path+url.replace("http://", "")+username}.obj"));
-        org.apache.http.impl.client.BasicCookieStore cookieStore = (org.apache.http.impl.client.BasicCookieStore) ois.readObject();
-        ois.close()
-        return cookieStore
+        File file = new File("${path+url.replace("http://", "")+username}.obj")
+        if (file.exists()) {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+            org.apache.http.impl.client.BasicCookieStore cookieStore = (org.apache.http.impl.client.BasicCookieStore) ois.readObject();
+            ois.close()
+            return cookieStore
+        } else {
+            return null
+        }
     }
 }
