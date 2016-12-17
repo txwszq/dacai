@@ -22,7 +22,12 @@ import org.apache.http.util.EntityUtils
 class HttpUtil {
 
     def static get(url, cookieStore) {
-        HttpClient client = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+        HttpClient client
+        if (cookieStore) {
+            client = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+        } else {
+            client = HttpClientBuilder.create().build()
+        }
         final HttpGet request = new HttpGet(url)
         request.setHeader("Referer", "${url}/home.php?mod=space&do=home");
         request.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:50.0) Gecko/20100101 Firefox/50.0");
