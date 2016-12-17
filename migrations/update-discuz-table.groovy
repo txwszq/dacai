@@ -23,4 +23,12 @@ databaseChangeLog = {
             }
         }
     }
+
+    changeSet(author: "zhiqiang.zhao (generated)", id: "update-shouting") {
+        grailsChange {
+            change {
+                sql.execute("update discuz set shouting_Status = 2 where id = 9")
+            }
+        }
+    }
 }
