@@ -21,17 +21,21 @@ class SendMsgJobJob {
 
     def execute() {
         // execute job
-        Discuz.findAll().each {discuz ->
-//            println discuz.url
-            discuzService.shouting(discuz)
-//            println discuz.url
-//            def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
-//            HttpUtil.get(discuz.url, cookieStore)
-        }
+//        Discuz.findAll().each {discuz ->
+////            println discuz.url
+//            discuzService.updateInfo(discuz)
+////            println discuz.url
+////            def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
+////            HttpUtil.get(discuz.url, cookieStore)
+//        }
+
 //
 //        println Discuz.count()
 
-        //def discuz = Discuz.findById(5)
+//        def discuz = Discuz.findById(9)
+//        while (true) {
+//            discuzService.shouting(discuz)
+//        }
 //        ParamsStrategiesContext context = new ParamsStrategiesContext()
 //        def params = context.getLoginParams(discuz.url, discuz.username, discuz.password)
 //        def cookieStore = HttpUtil.post("${discuz.url}/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1", params)

@@ -85,8 +85,10 @@ class DiscuzService {
         def formHash = getFormHash(discuz)
         def responseString = HttpUtil.get("${discuz.url}/home.php?mod=spacecp&ac=follow&op=add&hash=${formHash}&fuid=${discuz.currentId}&infloat=yes&handlekey=followmod&inajax=1&ajaxtarget=fwin_content_followmod", cookieStore)
         if(responseString.indexOf("成功收听") < 0) {
-            println discuz.url
+//            println discuz.url
             println responseString
+        } else {
+            println "收听成功:${Thread.currentThread().getId()}"
         }
         discuz.currentId--
         discuz.save(flush:true)
@@ -113,7 +115,7 @@ class DiscuzService {
         checkLogin(discuz)
         def cookieStore = SerializeUtil.readCookies(discuz.url, discuz.username)
         def context = new ParamsStrategiesContext()
-        def params = context.getUpdateInfo(getFormHash(discuz), "vpn加q群：516050449免费试用.", "高速独享vpn厉害了，Youtube高清视频不卡，上Facebook，Twitter，Google不限制，加q群：516050449免费试用.")
+        def params = context.getUpdateInfo(getFormHash(discuz), "宅男福利群：189603846.", "每周免费分享宅男福利。需要的家q.群：189603846")
         HttpUtil.post("${discuz.url}/home.php?mod=spacecp&ac=profile&op=info", params, cookieStore)
     }
 }
